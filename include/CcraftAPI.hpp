@@ -28,8 +28,8 @@
 #else
     #define _OUTPUT_TYPE ".out"
     #define _BASIC_OUTPUT_TYPE ""
-    #define _CLANG_BASIC_PATH "/usr/bin/"
     #define _GCC_UCRT_PATH "/usr/bin/"
+    #define _CLANG_BASIC_PATH "/usr/bin/"
 #endif
 
 #define DO_CHR(name) char* name
@@ -42,14 +42,14 @@
 
 struct BuildScript
 {
-    // as - one size object
-    // ls - dynamic size object
+    // as - one word object
+    // ls - many words object
 
-    DO_CHR(as_compiler) = "gcc";
+    DO_CHR(as_compiler) = "clang";
     DO_CHR(as_target)   = "main.c";
     DO_CHR(as_output)   = "a." _OUTPUT_TYPE;
     DO_CHRCHR(as_output_flag) = "-o";
-    DO_CHR(as_optimization) = "3";
+    DO_CHR(as_optimization) = "-O3";
 
     DO_CHRCHR(ls_flags);
     DO_CHRCHR(ls_includes);
@@ -58,7 +58,9 @@ struct BuildScript
 
 char* _get_existing_compiler() {
     bool _gcc = access(_GCC_UCRT_PATH "gcc" _BASIC_OUTPUT_TYPE, 0);
-    bool _clang = access(_GCC_UCRT_PATH "clang" _BASIC_OUTPUT_TYPE, 0);
+    bool _clang = access(_CLANG_BASIC_PATH "clang" _BASIC_OUTPUT_TYPE, 0);
+
+    if (_gcc && _clang) return "clang";
 
     if (_gcc) return "gcc";
     else if (_clang) return "clang";
