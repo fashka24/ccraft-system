@@ -32,3 +32,9 @@ The Build System is a tool that automates the process of compiling and building 
     python build.py
     python install.py
     ```
+   
+## Documentation
+
+Base docs, [\*click\*](https://github.com/fashka24/ccraft-system/tree/master/docs/base)
+
+Functions and macros docs, [\*click\*](https://github.com/fashka24/ccraft-system/tree/master/docs/useful-functions)
