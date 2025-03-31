@@ -2,6 +2,7 @@
 
 #include <string>
 #include <iostream>
+#include <cstdio>
 
 #include "excepts.hpp"
 
@@ -51,11 +52,14 @@ int _do_build(std::string lang_type, std::string file_path)
         // executing
         std::string _e_e = "_spec_", _e_command = 
             _EXECUTER_SYMBOL + _e_e + file_path1 + _OUTPUT_TYPE;
+        std::string _efile = _e_e + file_path1 + _OUTPUT_TYPE;
         
         // dev log
         // std::cout << "command: " << _command << "\n_e_command: " << _e_command << "\n";
-        system(_command.c_str());
-        system(_e_command.c_str());
+        int __X = system(_command.c_str());
+        if (__X == 0) system(_e_command.c_str());
+
+        std::remove(_efile.c_str());
     }
 
     return 0;
